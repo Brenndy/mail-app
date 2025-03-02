@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Factories\MailConfigFactory;
 use App\Models\Company;
 use Illuminate\Notifications\Notification;
 
@@ -11,8 +12,7 @@ abstract class AbstractMailNotification extends Notification
     {
         $company = Company::find($companyId);
 
-        $mailSettings = $company->mail_settings;
-        // Define a unique mailer for this company
+        $mailSettings = MailConfigFactory::getMailConfig($company);
         $uniqueMailerName = 'company_mailer_' . $companyId;
 
         config(["mail.mailers.$uniqueMailerName" => [
