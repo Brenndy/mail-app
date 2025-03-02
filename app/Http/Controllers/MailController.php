@@ -13,7 +13,11 @@ class MailController
 
         $user->notify(new CompanyMailNotification($user->company_id));
 
+        echo 'Notification sended to first user<br>';
+
         $user = User::find(2);
         $user->notify(new CompanyMailNotification($user->company_id));
+
+        echo 'Notification sended to second user';
     }
 }
